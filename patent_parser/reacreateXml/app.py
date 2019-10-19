@@ -1,6 +1,6 @@
 def convertFile(): 
 	path = "../data_set/"
-	file_name = "CLMS_US_0049"
+	file_name = "CLMS_US_0059"
 	input_name = file_name + ".OUT"
 	output_name = file_name + ".xml"
 
