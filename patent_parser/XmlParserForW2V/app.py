@@ -5,9 +5,9 @@ import xml.etree.ElementTree as ET
 
 def parseXml49():
     path = "../data_set/"
-    file_name = "test_49"
+    file_name = "CLMS_US_0049"
     input_name = file_name + ".xml"
-    output_name = file_name + "_parsed.xml"
+    output_name = file_name + "_w2v_parsed.xml"
 
     tree = ET.parse(path + input_name)
     root = tree.getroot()
@@ -23,7 +23,8 @@ def parseXml49():
             text_tag = ET.SubElement(item,'text')
             ref_tag = ET.SubElement(item,'ref')
             isdep_tag = ET.SubElement(item,'isdep')
-            num_tag.text = CLAIM.attrib['ID']
+            if 'ID' in CLAIM.attrib:
+                num_tag.text = CLAIM.attrib['ID']
             
             text = ''
             checkRef = False
@@ -40,7 +41,8 @@ def parseXml49():
                             text += CLREF.text
                         if 'CLREF' in CLREF.tag :
                             checkRef = True
-                            ref_tag.text = CLREF.attrib['ID']
+                            if 'ID' in CLREF.attrib:
+                                ref_tag.text = CLREF.attrib['ID']
 
                         for PDAT in CLREF:
                             if 'PDAT' in PDAT.tag and PDAT.text != None:
@@ -68,9 +70,9 @@ def parseXml49():
 
 def parseXml59():
     path = "../data_set/"
-    file_name = "test_59"
+    file_name = "CLMS_US_0059"
     input_name = file_name + ".xml"
-    output_name = file_name + "_parsed.xml"
+    output_name = file_name + "_w2v_parsed.xml"
 
     tree = ET.parse(path + input_name)
     root = tree.getroot()
@@ -87,7 +89,8 @@ def parseXml59():
             text_tag = ET.SubElement(item,'text')
             ref_tag = ET.SubElement(item,'ref')
             isdep_tag = ET.SubElement(item,'isdep')
-            num_tag.text = CLAIM.attrib['id']
+            if 'ID' in CLAIM.attrib:
+                num_tag.text = CLAIM.attrib['id']
             
             text = ''
             checkRef = False
@@ -100,7 +103,8 @@ def parseXml59():
                         text += tree2.text
                     if 'claim-ref' in tree2.tag :
                         checkRef = True
-                        ref_tag.text = tree2.attrib['idref']
+                        if 'idref' in tree2.attrib:
+                            ref_tag.text = tree2.attrib['idref']
                         if tree2.text != None:
                             text += tree2.text
                             if checkRef == True and 'claim' not in tree2.text:
