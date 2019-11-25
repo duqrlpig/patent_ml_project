@@ -8,15 +8,13 @@ def parseXml49():
     path = "../data_set/"
     file_name = "test_49"
     input_name = file_name + ".xml"
-    output_name = file_name + "_xml_parsed.xml"
-    output_bert_name = file_name + "_bert_parsed.xml"
+    output_bert_name = file_name + "_bert_parsed.csv"
 
     csvfile = open(path + output_bert_name, 'w')	
     csvwriter = csv.writer(csvfile)
+
     tree = ET.parse(path + input_name)
     root = tree.getroot()
-
-    data = ET.Element('data')
 
     non_claim_text_in_ref_cnt = 0
 
@@ -24,34 +22,20 @@ def parseXml49():
         for CLAIM in CLAIMs:
             if 'CLAIM' not in CLAIM.tag :
                 continue
-
-            item = ET.SubElement(data,'item')
-            num_tag = ET.SubElement(item,'no')
-            text_tag = ET.SubElement(item,'text')
-            ref_tag = ET.SubElement(item,'ref')
-            isdep_tag = ET.SubElement(item,'isdep')
-            if 'ID' in CLAIM.attrib:
-                num_tag.text = CLAIM.attrib['ID']
-            
             text = ''
             isdep = ''
             checkRef = False
             for PARA in CLAIM:
                 if 'PDAT' in PARA.tag and PARA.text != None:
                     text += PARA.text
-
                 for PTEXT in PARA:
                     if 'PDAT' in PTEXT.tag and PTEXT.text != None:
                         text += PTEXT.text
-
                     for CLREF in PTEXT:
                         if 'PDAT' in CLREF.tag and CLREF.text != None:
                             text += CLREF.text
                         if 'CLREF' in CLREF.tag :
                             checkRef = True
-                            if 'ID' in CLREF.attrib:
-                                ref_tag.text = CLREF.attrib['ID']
-
                         for PDAT in CLREF:
                             if 'PDAT' in PDAT.tag and PDAT.text != None:
                                 text += PDAT.text
@@ -60,26 +44,16 @@ def parseXml49():
                     
             if checkRef == False : 
                 isdep = "1"   
-                isdep_tag.text = '0'
-                ref_tag.text = '0'
             else :
                 isdep = "2"
-                isdep_tag.text = '1'
             idx = text.find('.')
             if idx != None and idx < 3 and idx > 0:
                 text = text[idx+2: ]
-            text_tag.text = text
             text = text.encode('utf-8')
-            #text = 'asdsad'
             content = [isdep,text]
             csvwriter.writerow(content)
 
     print('claims49 -> non_claim_text_in_ref_cnt : ', non_claim_text_in_ref_cnt)
-
-    filter_file = open(path + output_name, 'w')					
-    mydata = ET.tostring(data)
-    filter_file.write(mydata)
-    filter_file.close()
     csvfile.close()
 
 
