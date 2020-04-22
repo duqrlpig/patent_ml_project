@@ -20,7 +20,7 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel, BertForMaskedLM, B
 from pytorch_pretrained_bert.optimization import BertAdam, WarmupLinearSchedule
 
 import pandas as pd
-
+import re
 # OPTIONAL: if you want to have more information on what's happening, activate the logger as follows
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -51,6 +51,36 @@ MAX_SEQ_LENGTH = 128
 EVAL_BATCH_SIZE = 8
 OUTPUT_MODE = 'classification'
 
+def get_ref_data(text_list, dep_list):
+    values = []
+    
+    for idx in range(len(dep_list)):
+        if dep_list[idx] == 0:
+            values.append(-1)
+        else:
+            text = get_subs_claim_text(text_list[idx])
+            numList = re.findall(r'\b\d+\b', text)
+            # print(f"numList: {numList}, {text_list[idx]}")
+            if len(numList) > 0:
+                values.append(numList[0])
+            else:
+                values.append(-1)
+    print(values)
+    return values
+
+
+def get_subs_claim_text(text):
+    if 'claim' in text:
+        index = text.index("claim")
+        text = text[index:]
+    elif 'CLAIM' in text:
+        index = text.index("CLAIM")
+        text = text[index:]
+    print(f"sub text: {text}")
+    return text
+        
+        
+
 
 def execute_classification(FILE_DIR):
 
@@ -65,8 +95,10 @@ def execute_classification(FILE_DIR):
     'alpha':['a']*test_df.shape[0],
     'text': test_df[1].replace(r'\n', ' ', regex=True)
     })
-
+    
     dev_df_bert.head()
+    col_text_list = dev_df_bert['text'].tolist()
+
     dev_df_bert.to_csv(FILE_DIR + 'dev.tsv', sep='\t', index=False, header=False)
 
 
@@ -130,8 +162,5 @@ def execute_classification(FILE_DIR):
                 values.append(1)
             else:
                 values.append(0)
-
-    print(values)
-    print(len(values))
 
     return values
