@@ -33,7 +33,7 @@ header.append('patn')
 header.append('text')
 header.append('indicator')
 line_count = 0
-print(indicator_index)
+
 with open('output_'+indicators[indicator_index]+'.csv', mode='w') as csv_file:
     writer = csv.DictWriter(csv_file, fieldnames=header)
 
@@ -56,10 +56,10 @@ with open('output_'+indicators[indicator_index]+'.csv', mode='w') as csv_file:
                     thisdict['text'] = attr
                 if attr_count == 2:
                     indicators = attr.split('/')
-                    print(indicators)
                     indicator_count = 0
                     for indicator in indicators:
                         if indicator_count == indicator_index:
+                            print(indicator_count)
                             thisdict['indicator'] = indicator
                         indicator_count+=1
                 attr_count+=1
