@@ -37,5 +37,5 @@
 # RANDOM-FOREST APP (rf_project)
 
 ### RANDOM FOREST
-##### rf_project/randomforest.ipynb 주피터 노트북 실행
-###### 특허의 성과지표 별 단어의 영향도 분석
+##### 특허의 성과지표 별 단어의 영향도 분석
+###### rf_project/randomforest.ipynb
