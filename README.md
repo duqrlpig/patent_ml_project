@@ -17,21 +17,25 @@
 ###### * 현 디렉토리에 data_set 폴더 생성 및 파일 추가 필요
 
 
+
 # ML APP (독립항, 종속항 구분 애플리케이션)
 
 ### 데이터 Training APP
-##### text_classification_bert/BERT.ipynb
+##### BERT모델을 활용하여 청구항 구분에 맞는 FINE TUNING TRANING 수행
+###### text_classification_bert/BERT.ipynb
 
 ### 데이터 Testing APP
-##### text_classification_bert/BERT_eval.ipynb
+##### TRAINING된 BERT모델을 TESTING 수행
+###### text_classification_bert/BERT_eval.ipynb
 
-### classification NOTEBOOK APP
-##### server.ipynb
+### 응용 API화 된 ML APP
+##### 개발된 청구항구분 ML APP을 API형태로 구성
+###### text_classification_bert/server.ipynb
 
 
 
 # RANDOM-FOREST APP (rf_project)
 
 ### RANDOM FOREST
-##### 특허의 성과지표 별 단어의 영향도 분석
-###### rf_project/randomforest.ipynb 주피터 노트북 실행
+##### rf_project/randomforest.ipynb 주피터 노트북 실행
+###### 특허의 성과지표 별 단어의 영향도 분석
