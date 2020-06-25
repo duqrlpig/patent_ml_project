@@ -17,14 +17,21 @@
 ###### * 현 디렉토리에 data_set 폴더 생성 및 파일 추가 필요
 
 
+# ML APP (독립항, 종속항 구분 애플리케이션)
 
-# ML APP (text_classification_bert)
+### 데이터 Training APP
+##### text_classification_bert/BERT.ipynb
 
-### BERT
-##### 데이터 Training NOTEBOOK APP
+### 데이터 Testing APP
+##### text_classification_bert/BERT_eval.ipynb
 
-### BERT_eval
-##### 데이터 Testing NOTEBOOK APP
+### classification NOTEBOOK APP
+##### server.ipynb
 
-### BERT_app
-##### classification NOTEBOOK APP
+
+
+# RANDOM-FOREST APP (rf_project)
+
+### RANDOM FOREST
+##### 특허의 성과지표 별 단어의 영향도 분석
+###### rf_project/randomforest.ipynb 주피터 노트북 실행
